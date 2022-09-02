@@ -20,6 +20,7 @@ import { useDispatch } from "react-redux";
 //   import { registerUser } from "../Redux/AuthReducer/auth.actions";
 import { useToast } from "@chakra-ui/react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { signUpApi } from "../Redux/Auth/auth.actions";
 
 export default function SignUp() {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const toast = useToast();
   const [userData, setUserData] = useState({
-    name: "",
+    username: "",
     role: "Student",
     email: "",
     password: "",
@@ -41,16 +42,17 @@ export default function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //   dispatch(registerUser(userData));
-    setUserData({ name: "", username: "", email: "", password: "" });
-    toast({
-      title: "Account created successfully!",
-      position: "top-left",
-      status: "success",
-      duration: 9000,
-      isClosable: true,
-    });
-    navigate("/signin");
+    dispatch(signUpApi(userData));
+    // .then(()=>{setUserData({ name: "", username: "", email: "", password: "" }),
+    // toast({
+    //   title: "Account created successfully!",
+    //   position: "top-left",
+    //   status: "success",
+    //   duration: 9000,
+    //   isClosable: true,
+    // }),
+    // navigate("/signin")})
+    
   };
 
   return (
@@ -84,8 +86,8 @@ export default function SignUp() {
                     <Input
                       type="text"
                       placeholder="Enter your name"
-                      name="name"
-                      value={userData.name}
+                      name="username"
+                      value={userData.username}
                       onChange={handleOnChange}
                     />
                   </FormControl>

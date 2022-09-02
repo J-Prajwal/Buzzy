@@ -29,18 +29,19 @@ userController.post("/signup", (req, res) => {
 userController.post("/login", async (req, res) => {
     const { email, password } = req.body;
     const user = await UserModel.find({ email });
+    console.log(user);
     if (!user) {
         return res.send("Invalid Credentials")
     }
-    const hash = user.password;
+    const hash = user[0].password;
     const userId = user._id
     bcrypt.compare(password, hash, function (err, result) {
         if (result) {
             var token = jwt.sign({ email, userId }, process.env.SECRET);
-            res.send({ messege: "Login Sucessfull", token: token })
+            res.send({ messege: "Login Sucessfull", token })
         }
         else {
-            return res.send("Invalid Credentials");
+            return res.send("Invalid");
         }
     });
 })
