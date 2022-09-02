@@ -17,7 +17,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { BsMicFill } from "react-icons/bs";
+import { BsFillMicMuteFill, BsMicFill } from "react-icons/bs";
 import ButtonStopwatch from "../Components/ButtonStopwatch";
 import DisplayStopwatch from "../Components/DisplayStopwatch";
 import useSpeechToText from "react-hook-speech-to-text";
@@ -49,7 +49,7 @@ export default function Recorder() {
   const [time, setTime] = useState({ ms: 0, s: 0, m: 0, h: 0 });
   const [interv, setInterv] = useState();
   const [status, setStatus] = useState(0);
-  const [recordedText,setRecordedText]=useState("")
+  const [recordedText, setRecordedText] = useState("");
   // console.log(process.env.REACT_APP_GCA_KEY);
   const {
     // error,
@@ -68,13 +68,9 @@ export default function Recorder() {
 
   const start = () => {
     run();
-    if (!isRecording) {
-      startSpeechToText;
-    }
     setStatus(1);
     setInterv(setInterval(run, 10));
-    console.log("Start")
-     
+    console.log("Start");
   };
 
   var updatedMs = time.ms,
@@ -83,6 +79,7 @@ export default function Recorder() {
     updatedH = time.h;
 
   const run = () => {
+    startSpeechToText;
     if (updatedM === 60) {
       updatedH++;
       updatedM = 0;
@@ -103,10 +100,7 @@ export default function Recorder() {
 
   const stop = () => {
     clearInterval(interv);
-    if(isRecording){
-    stopSpeechToText
-  }
-  setStatus(0);
+    setStatus(0);
     setRecordedText(interimResult);
   };
 
@@ -114,8 +108,10 @@ export default function Recorder() {
     clearInterval(interv);
     setStatus(0);
     setTime({ ms: 0, s: 0, m: 0, h: 0 });
-    setRecordedText("")
-    console.log(results)
+    setRecordedText("");
+    console.log(results);
+    let sec = Math.floor((results[0].timestamp / 1000) % 60);
+    console.log(sec);
   };
 
   const toast = useToast();
@@ -271,15 +267,23 @@ export default function Recorder() {
                   }}
                 />
                 <Flex gap={10} justifyContent={"space-between"}>
-                  <ButtonStopwatch
+                  {/* <ButtonStopwatch
                     status={status}
                     // reset={reset}
                     stop={stop}
                     start={start}
-                  />
+                  /> */}
+                  {!isRecording ? (
+                    <Button onClick={startSpeechToText}>
+                      <BsMicFill />
+                    </Button>
+                  ) : (
+                    <Button onClick={stopSpeechToText}>
+                      <BsFillMicMuteFill />
+                    </Button>
+                  )}
 
                   <Heading>
-                    {" "}
                     <DisplayStopwatch time={time} />{" "}
                   </Heading>
                   <Button
