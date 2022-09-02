@@ -21,7 +21,7 @@ const signUpApi = (payload) => (dispatch) => {
 const loginApi = (payload) => (dispatch) => {
   console.log(payload);
   dispatch({ type: LOGIN_REQUEST });
-  axios
+  return axios
     .post("http://localhost:7000/user/login", payload)
     .then((res) => {
       setItem("userId", res.data.userId);

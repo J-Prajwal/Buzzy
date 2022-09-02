@@ -15,8 +15,15 @@ import {
 import { useDispatch } from "react-redux";
 import { loginApi } from "../Redux/Auth/auth.actions";
 import {useState} from "react";
+import { useNavigate } from "react-router-dom";
+
+
+
 export default function Login() {
+
+
   const dispatch = useDispatch();
+  const navigate= useNavigate();
 
   const [userData, setUserData] = useState({
     email: "",
@@ -32,7 +39,9 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginApi(userData))
+    dispatch(loginApi(userData)).then(()=>
+      navigate("/recorder")
+    )
   }
 
 
