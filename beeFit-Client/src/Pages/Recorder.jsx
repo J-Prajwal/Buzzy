@@ -20,6 +20,7 @@ import { useState } from "react";
 import { BsMicFill } from "react-icons/bs";
 import ButtonStopwatch from "../Components/ButtonStopwatch";
 import DisplayStopwatch from "../Components/DisplayStopwatch";
+import useSpeechToText from "react-hook-speech-to-text";
 
 const avatars = [
   {
@@ -48,11 +49,32 @@ export default function Recorder() {
   const [time, setTime] = useState({ ms: 0, s: 0, m: 0, h: 0 });
   const [interv, setInterv] = useState();
   const [status, setStatus] = useState(0);
+  const [recordedText,setRecordedText]=useState("")
+  // console.log(process.env.REACT_APP_GCA_KEY);
+  const {
+    // error,
+    interimResult,
+    isRecording,
+    results,
+    startSpeechToText,
+    stopSpeechToText,
+  } = useSpeechToText({
+    continuous: true,
+    crossBrowser: true,
+    googleApiKey: "AIzaSyAdcVWVfzB8YS9XDJFW2BIOR5WWef9wfaA",
+    speechRecognitionProperties: { interimResults: true },
+    useLegacyResults: false,
+  });
 
   const start = () => {
     run();
+    if (!isRecording) {
+      startSpeechToText;
+    }
     setStatus(1);
     setInterv(setInterval(run, 10));
+    console.log("Start")
+     
   };
 
   var updatedMs = time.ms,
@@ -81,13 +103,19 @@ export default function Recorder() {
 
   const stop = () => {
     clearInterval(interv);
-    setStatus(2);
+    if(isRecording){
+    stopSpeechToText
+  }
+  setStatus(0);
+    setRecordedText(interimResult);
   };
 
   const reset = () => {
     clearInterval(interv);
     setStatus(0);
     setTime({ ms: 0, s: 0, m: 0, h: 0 });
+    setRecordedText("")
+    console.log(results)
   };
 
   const toast = useToast();
@@ -231,7 +259,9 @@ export default function Recorder() {
                   }}
                 />
                 <Textarea
-                  placeholder="Text Content"
+                  placeholder="Start Speaking to see your context"
+                  isDisabled
+                  // value={""}
                   rows={3}
                   bg={"gray.100"}
                   border={0}
@@ -243,13 +273,17 @@ export default function Recorder() {
                 <Flex gap={10} justifyContent={"space-between"}>
                   <ButtonStopwatch
                     status={status}
-                    reset={reset}
+                    // reset={reset}
                     stop={stop}
                     start={start}
                   />
-                  
-                  <Heading> <DisplayStopwatch time={time} /> </Heading>
+
+                  <Heading>
+                    {" "}
+                    <DisplayStopwatch time={time} />{" "}
+                  </Heading>
                   <Button
+                    onClick={reset}
                     fontFamily={"heading"}
                     bgGradient="linear(to-r, red.400,pink.400)"
                     color={"white"}
@@ -258,26 +292,31 @@ export default function Recorder() {
                       boxShadow: "xl",
                     }}
                   >
-                    Submit
+                    Reset
                   </Button>
                 </Flex>
               </Stack>
             </FormControl>
           </Box>
           <Button
-        onClick={() =>
-          toast({
-            title: "Developed By",
-            position: "top",
-            description: "Binary Beez during Hackathon",
-            status: "success",
-            duration: 5000,
-            isClosable: true,
-          })
-        }
-      >
-        Show Credits
-      </Button>
+            onClick={() => {
+              toast({
+                title: "Developed By",
+                position: "top",
+                description: "Binary Beez during Hackathon",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+              });
+              console.log(recordedText);
+            }}
+          >
+            Submit
+          </Button>
+          <button onClick={isRecording ? stopSpeechToText : startSpeechToText}>
+            <span>{isRecording ? "Stop Recording" : "Start Recording"}</span>
+            {/* <img data-recording={isRecording} src={micIcon} alt="" /> */}
+          </button>
         </Stack>
       </Container>
       <Blur
