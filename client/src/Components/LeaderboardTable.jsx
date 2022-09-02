@@ -28,17 +28,22 @@ const LeaderboardTable = ({ leaderboard }) => {
       </Heading>
       <TableContainer w={"95%"} m={"auto"} mt={10}>
         <Table variant="striped" colorScheme="blue">
-          <TableCaption>
-            <Button
-              bgColor={"blue.400"}
-              _hover={{ bgColor: "blue.500" }}
-              color="white"
-              rightIcon={<FaSlack />}
-              onClick={postHandler}
-            >
-              Post on Slack
-            </Button>
-          </TableCaption>
+          {leaderboard.length > 0 ? (
+            <TableCaption>
+              <Button
+                bgColor={"blue.400"}
+                _hover={{ bgColor: "blue.500" }}
+                color="white"
+                rightIcon={<FaSlack />}
+                onClick={postHandler}
+              >
+                Post on Slack
+              </Button>
+            </TableCaption>
+          ) : (
+            ""
+          )}
+
           <Thead>
             <Tr>
               <Th>Rank</Th>
@@ -49,15 +54,29 @@ const LeaderboardTable = ({ leaderboard }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {leaderboard.map((ele, ind) => (
+            {leaderboard.length > 0 ? (
+              leaderboard.map((ele, ind) => {
+                let newTime = [];
+                newTime = ele.time.split(" ");
+                newTime[0] = newTime[0] + "h ";
+                newTime[1] = newTime[1] + "m ";
+                newTime[2] = newTime[2] + "s ";
+                newTime[3] = newTime[3] + "ms ";
+                return (
+                  <Tr>
+                    <Td>{ind + 1}</Td>
+                    <Td>{ele.name}</Td>
+                    <Td>{ele.student_code}</Td>
+                    <Td>{ele.topic}</Td>
+                    <Td>{newTime}</Td>
+                  </Tr>
+                );
+              })
+            ) : (
               <Tr>
-                <Td>{ind + 1}</Td>
-                <Td>{ele.name}</Td>
-                <Td>{ele.student_code}</Td>
-                <Td>{ele.topic}</Td>
-                <Td>{ele.time}</Td>
+                <Td colSpan={5}>You're not authenticated to see this data</Td>
               </Tr>
-            ))}
+            )}
           </Tbody>
         </Table>
       </TableContainer>
