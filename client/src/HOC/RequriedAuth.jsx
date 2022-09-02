@@ -4,8 +4,9 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 const RequireAuth = ({ children }) => {
-  const { isAuth } = useSelector((state) => state.auth);
-  return isAuth ? children : <Navigate to="/login" />;
+  const { state } = useSelector((state) => state.auth);
+  console.log(state.isAuth);
+  return state.isAuth ? children : <Navigate to="/login" />;
 };
 
 export default RequireAuth;

@@ -11,8 +11,9 @@ import {
   Image,
   Text,
   Heading,
+  useColorMode,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { Link as RouterLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -29,12 +30,15 @@ const NavLink = ({ children }) => (
     }}
     to={`/${children}`}
   >
-    <Text textTransform={"uppercase"} fontSize={["md", "xl"]}>{children}</Text>
+    <Text textTransform={"uppercase"} fontSize={["md", "xl"]}>
+      {children}
+    </Text>
   </RouterLink>
 );
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { colorMode, toggleColorMode } = useColorMode();
   // const { user } = useSelector((state) => state.taskReducer);
   return (
     <>
@@ -54,7 +58,10 @@ export default function Navbar() {
           <HStack spacing={8} alignItems={"center"}>
             <Box>
               <RouterLink to={"/"}>
-                <Image src="https://i.postimg.cc/nczfkp7q/buzzy-removebg-preview.png" w={["80%", "60%"]}></Image>
+                <Image
+                  src="https://i.postimg.cc/nczfkp7q/buzzy-removebg-preview.png"
+                  w={["80%", "60%"]}
+                ></Image>
               </RouterLink>
             </Box>
             <HStack
@@ -68,6 +75,9 @@ export default function Navbar() {
             </HStack>
           </HStack>
           <Flex alignItems={"center"}>
+            <Button onClick={toggleColorMode} bgColor={"transparent"} _hover={{bgColor: "transparent"}}>
+              {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+            </Button>
             <Button
               variant={"ghosted"}
               colorScheme={"blue"}
