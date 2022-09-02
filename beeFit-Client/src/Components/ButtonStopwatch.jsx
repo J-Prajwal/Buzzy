@@ -36,7 +36,7 @@ const ButtonStopwatch = (props) => {
       {props.status === 2 ? (
         <div>
           <Button colorScheme="red" variant="solid" onClick={props.reset}>
-          <BiReset /    >
+            <BsFillMicMuteFill />
           </Button>
         </div>
       ) : (
