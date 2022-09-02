@@ -34,11 +34,11 @@ userController.post("/login", async (req, res) => {
         return res.send("Invalid Credentials")
     }
     const hash = user[0].password;
-    const userId = user._id
+    const userId = user[0]._id
     bcrypt.compare(password, hash, function (err, result) {
         if (result) {
             var token = jwt.sign({ email, userId }, process.env.SECRET);
-            res.send({ messege: "Login Sucessfull", token })
+            res.send({ messege: "Login Sucessfull", token, userId })
         }
         else {
             return res.send("Invalid");

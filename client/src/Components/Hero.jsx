@@ -53,7 +53,7 @@ export default function Hero() {
               _hover={{ bg: "whiteAlpha.500" }}
             >
               <a
-                href="https://www.youtube.com/watch?v=u_ktRTWMX3M&ab_channel=MulliganBrothers"
+                href="https://www.youtube.com/watch?v=Ss1XWRfdM-0&ab_channel=SandeepMaheshwari"
                 target="_blank"
                 rel="noopener noreferrer"
               >

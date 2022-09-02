@@ -29,7 +29,7 @@ const NavLink = ({ children }) => (
     }}
     to={`/${children}`}
   >
-    <Text textTransform={"uppercase"}>{children}</Text>
+    <Text textTransform={"uppercase"} fontSize={["md", "xl"]}>{children}</Text>
   </RouterLink>
 );
 
@@ -38,7 +38,7 @@ export default function Navbar() {
   // const { user } = useSelector((state) => state.taskReducer);
   return (
     <>
-      <Box py={[2, 3]} px={[null, 10]} zIndex={1024}>
+      <Box py={[2, 3]} px={[null, 10]}>
         <Flex
           h={[10, 16]}
           alignItems={"center"}
@@ -54,13 +54,12 @@ export default function Navbar() {
           <HStack spacing={8} alignItems={"center"}>
             <Box>
               <RouterLink to={"/"}>
-                <Heading>Buzzy</Heading>
-                {/* <Image src="https://clockify.me/assets/images/clockify-logo.svg"></Image>{" "} */}
+                <Image src="https://i.postimg.cc/nczfkp7q/buzzy-removebg-preview.png" w={["80%", "60%"]}></Image>
               </RouterLink>
             </Box>
             <HStack
               as={"nav"}
-              spacing={4}
+              spacing={8}
               display={{ base: "none", md: "flex" }}
             >
               {Links.map((link) => (

@@ -14,7 +14,7 @@ const DisplayStopwatch = (props) => {
 
   return (
     <div>
-      <Heading size={"lg"}>
+      <Heading size={"md"} m={"auto"} py={"2"}>
         <span>{props.time.m >= 10 ? props.time.m : "0" + props.time.m} : </span>
 
         <span>{props.time.s >= 10 ? props.time.s : "0" + props.time.s} : </span>

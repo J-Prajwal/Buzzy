@@ -43,16 +43,6 @@ export default function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(signUpApi(userData));
-    // .then(()=>{setUserData({ name: "", username: "", email: "", password: "" }),
-    // toast({
-    //   title: "Account created successfully!",
-    //   position: "top-left",
-    //   status: "success",
-    //   duration: 9000,
-    //   isClosable: true,
-    // }),
-    // navigate("/signin")})
-    
   };
 
   return (
@@ -155,7 +145,7 @@ export default function SignUp() {
               <Stack pt={6}>
                 <Text align={"center"}>
                   Already a user?{" "}
-                  <Link to={"/signin"}>
+                  <Link to={"/login"}>
                     {" "}
                     <span style={{ color: "#4299e1" }}>Login</span>{" "}
                   </Link>

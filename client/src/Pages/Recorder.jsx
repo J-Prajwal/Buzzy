@@ -15,6 +15,7 @@ import {
   FormControl,
   Textarea,
   useToast,
+  Center,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { BsFillMicMuteFill, BsMicFill } from "react-icons/bs";
@@ -22,6 +23,9 @@ import ButtonStopwatch from "../Components/ButtonStopwatch";
 import DisplayStopwatch from "../Components/DisplayStopwatch";
 import useSpeechToText from "react-hook-speech-to-text";
 import { useEffect } from "react";
+import { postRecord } from "../Redux/App/app.actions";
+import { useDispatch } from "react-redux";
+import { getItem } from "../Utils/localStorage";
 
 const avatars = [
   {
@@ -50,8 +54,7 @@ export default function Recorder() {
   const [time, setTime] = useState({ ms: 0, s: 0, m: 0, h: 0 });
   const [interv, setInterv] = useState();
   const [status, setStatus] = useState(0);
-  const [recordedText, setRecordedText] = useState("");
-  // console.log(process.env.REACT_APP_GCA_KEY);
+  let [recordedText, setRecordedText] = useState("");
   const {
     // error,
     interimResult,
@@ -65,6 +68,14 @@ export default function Recorder() {
     googleApiKey: "AIzaSyAdcVWVfzB8YS9XDJFW2BIOR5WWef9wfaA",
     speechRecognitionProperties: { interimResults: true },
     useLegacyResults: false,
+  });
+  const [record, setRecord] = useState({
+    userId: getItem("userId"),
+    name: "",
+    student_code: "",
+    topic: "",
+    content: results.join(" "),
+    time: "",
   });
 
   const start = () => {
@@ -102,16 +113,47 @@ export default function Recorder() {
     clearInterval(interv);
     setStatus(0);
     setRecordedText(interimResult);
-    setTime({ ms: 0, s: 0, m: 0, h: 0 });
+    let newTime = [];
+    for (const key in time) {
+      newTime.push(time[key]);
+    }
+    console.log(newTime.join(" "));
+    setRecord({ ...record, time: newTime.reverse().join(" ") });
   };
 
   const reset = () => {
+    window.location.reload();
     stopSpeechToText();
     clearInterval(interv);
     setStatus(0);
     setTime({ ms: 0, s: 0, m: 0, h: 0 });
     setRecordedText("");
     console.log(results);
+  };
+
+  let res = [];
+  results.forEach((r) => {
+    res.push(r.transcript);
+  });
+  console.log(res.join(" "));
+
+  const dispatch = useDispatch();
+
+  const handleOnChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setRecord((values) => ({ ...values, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setRecord({ ...record, content: res.join(" ") });
+    console.log(record);
+    dispatch(postRecord(record));
+  };
+
+  const confirmHandler = () => {
+    setRecord({ ...record, content: res.join(" ") });
   };
 
   const toast = useToast();
@@ -223,10 +265,11 @@ export default function Recorder() {
               our rockstar speaker troop!
             </Text>
           </Stack>
-          <Box as={"form"} mt={10}>
+          <Box as={"form"} mt={10} onSubmit={handleSubmit}>
             <FormControl>
               <Stack spacing={4}>
                 <Input
+                  name="name"
                   placeholder="Student's Name"
                   bg={"gray.100"}
                   border={0}
@@ -235,8 +278,11 @@ export default function Recorder() {
                     color: "gray.500",
                   }}
                   isRequired
+                  value={record.name}
+                  onChange={handleOnChange}
                 />
                 <Input
+                  name="student_code"
                   placeholder="Student Code"
                   bg={"gray.100"}
                   border={0}
@@ -244,8 +290,11 @@ export default function Recorder() {
                   _placeholder={{
                     color: "gray.500",
                   }}
+                  value={record.student_code}
+                  onChange={handleOnChange}
                 />
                 <Input
+                  name="topic"
                   placeholder="Topic"
                   bg={"gray.100"}
                   border={0}
@@ -253,6 +302,8 @@ export default function Recorder() {
                   _placeholder={{
                     color: "gray.500",
                   }}
+                  value={record.topic}
+                  onChange={handleOnChange}
                 />
                 {results.length === 0 ? (
                   <Heading
@@ -266,14 +317,25 @@ export default function Recorder() {
                   </Heading>
                 ) : (
                   <Heading
+                    maxH={"10rem"}
+                    overflowY={"scroll"}
                     fontWeight={400}
                     size={"md"}
                     textAlign={"center"}
                     color={"gray"}
                     py={5}
-                  >{results.map((res) => res.transcript)}</Heading>
+                  >
+                    {results.map((result) => {
+                      result.transcript;
+                      res.push(result.transcript);
+                    })}
+                  </Heading>
                 )}
-                {interimResult && <Text>{interimResult}</Text>}
+                {interimResult && (
+                  <Text maxH={"7rem"} overflowY={"scroll"}>
+                    {interimResult}
+                  </Text>
+                )}
                 <Flex gap={10} justifyContent={"space-between"}>
                   {isRecording ? (
                     <Button
@@ -306,6 +368,18 @@ export default function Recorder() {
                     <DisplayStopwatch time={time} />{" "}
                   </Heading>
                   <Button
+                    onClick={confirmHandler}
+                    fontFamily={"heading"}
+                    bgGradient="linear(to-r, green.400,teal.400)"
+                    color={"white"}
+                    _hover={{
+                      bgGradient: "linear(to-r, green.400,teal.400)",
+                      boxShadow: "xl",
+                    }}
+                  >
+                    Confirm
+                  </Button>
+                  <Button
                     onClick={reset}
                     fontFamily={"heading"}
                     bgGradient="linear(to-r, red.400,pink.400)"
@@ -320,22 +394,21 @@ export default function Recorder() {
                 </Flex>
               </Stack>
             </FormControl>
+            <Button
+              mt={7}
+              width={"100%"}
+              fontFamily={"heading"}
+              bgGradient="linear(to-r, red.400,pink.400)"
+              color={"white"}
+              _hover={{
+                bgGradient: "linear(to-r, red.400,pink.400)",
+                boxShadow: "xl",
+              }}
+              type="submit"
+            >
+              Submit
+            </Button>
           </Box>
-          <Button
-            onClick={() => {
-              toast({
-                title: "Developed By",
-                position: "top",
-                description: recordedText,
-                status: "success",
-                duration: 5000,
-                isClosable: true,
-              });
-              console.log(recordedText);
-            }}
-          >
-            Submit
-          </Button>
         </Stack>
       </Container>
       <Blur
