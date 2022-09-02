@@ -9,45 +9,56 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  Heading,
+  Button,
 } from "@chakra-ui/react";
+import { FaSlack } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { postLeaderboard } from "../Redux/App/app.actions";
 
-const LeaderboardTable = () => {
+const LeaderboardTable = ({ leaderboard }) => {
+  const dispatch = useDispatch();
+  const postHandler = () => {
+    dispatch(postLeaderboard(leaderboard));
+  };
   return (
     <div>
-      <TableContainer>
-        <Table variant="striped" colorScheme="teal">
-          <TableCaption>Imperial to metric conversion factors</TableCaption>
+      <Heading w={"95%"} m={"auto"} mt={10}>
+        Top 10 Speakers of the week
+      </Heading>
+      <TableContainer w={"95%"} m={"auto"} mt={10}>
+        <Table variant="striped" colorScheme="blue">
+          <TableCaption>
+            <Button
+              bgColor={"blue.400"}
+              _hover={{ bgColor: "blue.500" }}
+              color="white"
+              rightIcon={<FaSlack />}
+              onClick={postHandler}
+            >
+              Post on Slack
+            </Button>
+          </TableCaption>
           <Thead>
             <Tr>
-              <Th>To convert</Th>
-              <Th>into</Th>
-              <Th isNumeric>multiply by</Th>
+              <Th>Rank</Th>
+              <Th>Student Name</Th>
+              <Th>Student Code</Th>
+              <Th>Topic</Th>
+              <Th>Time</Th>
             </Tr>
           </Thead>
           <Tbody>
-            <Tr>
-              <Td>inches</Td>
-              <Td>millimetres (mm)</Td>
-              <Td isNumeric>25.4</Td>
-            </Tr>
-            <Tr>
-              <Td>feet</Td>
-              <Td>centimetres (cm)</Td>
-              <Td isNumeric>30.48</Td>
-            </Tr>
-            <Tr>
-              <Td>yards</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-            </Tr>
+            {leaderboard.map((ele, ind) => (
+              <Tr>
+                <Td>{ind + 1}</Td>
+                <Td>{ele.name}</Td>
+                <Td>{ele.student_code}</Td>
+                <Td>{ele.topic}</Td>
+                <Td>{ele.time}</Td>
+              </Tr>
+            ))}
           </Tbody>
-          <Tfoot>
-            <Tr>
-              <Th>To convert</Th>
-              <Th>into</Th>
-              <Th isNumeric>multiply by</Th>
-            </Tr>
-          </Tfoot>
         </Table>
       </TableContainer>
     </div>

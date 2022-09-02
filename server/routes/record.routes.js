@@ -41,12 +41,31 @@ recordController.get(
   authorization(["Admin"]),
   async (req, res) => {
     const topTen = await RecordDataModel.find().sort({ time: -1 }).limit(10);
-    let message = `Hi from admin`;
-    const url = process.env.SLACK_SECRET_HOOK;
-    const slackResult = await axios.post(url, {
-      text: message,
-    });
     res.send(topTen);
+  }
+);
+
+recordController.post(
+  "/leaderboard/post",
+  authentication,
+  authorization(["Admin"]),
+  async (req, res) => {
+    let message = req.body;
+    console.log(message);
+    const url = process.env.SLACK_SECRET_HOOK;
+    let data = "Top Ranked Speakers of this week: \n\n";
+    let newTime = [];
+    message.forEach((ele, ind) => {
+      newTime = ele.time.split(" ");
+      newTime[0] = newTime[0] + " h";
+      newTime[1] = newTime[1] + " m";
+      newTime[2] = newTime[2] + " s";
+      newTime[3] = newTime[3] + " ms";
+      data += `Rank: ${ind + 1} - ${ele.name} (${ele.student_code}) - Time: [${newTime.join(" : ")}] \n\n`;
+    });
+    const slackResult = await axios.post(url, {
+      text: data,
+    });
   }
 );
 
