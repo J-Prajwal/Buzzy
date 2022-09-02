@@ -44,7 +44,7 @@ export default function Hero() {
               color={"white"}
               _hover={{ bg: "blue.500" }}
             >
-              <Link to="/tracker">Start Tracking</Link>
+              <Link to="/recorder">Start Recording</Link>
             </Button>
             <Button
               bg={"whiteAlpha.300"}

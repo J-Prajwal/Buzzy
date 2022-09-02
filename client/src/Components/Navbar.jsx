@@ -12,10 +12,22 @@ import {
   Text,
   Heading,
   useColorMode,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { Link as RouterLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import {
+  HamburgerIcon,
+  CloseIcon,
+  MoonIcon,
+  SunIcon,
+  ChevronDownIcon,
+} from "@chakra-ui/icons";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { GrUserExpert } from "react-icons/gr";
+import { logout } from "../Redux/Auth/auth.actions";
 
 const Links = ["recorder", "leaderboard"];
 
@@ -39,7 +51,15 @@ const NavLink = ({ children }) => (
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
-  // const { user } = useSelector((state) => state.taskReducer);
+  const state = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const logoutHandler = () => {
+    dispatch(logout());
+    navigate("/");
+    window.location.reload();
+  };
+
   return (
     <>
       <Box py={[2, 3]} px={[null, 10]}>
@@ -74,32 +94,47 @@ export default function Navbar() {
               ))}
             </HStack>
           </HStack>
-          <Flex alignItems={"center"}>
-            <Button onClick={toggleColorMode} bgColor={"transparent"} _hover={{bgColor: "transparent"}}>
-              {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-            </Button>
-            <Button
-              variant={"ghosted"}
-              colorScheme={"blue"}
-              size={["xs", "sm"]}
-              mr={4}
-            >
-              <RouterLink to={"/login"}>LOG IN</RouterLink>
-            </Button>
-            <Button
-              variant={"outline"}
-              color={"blue.400"}
-              borderColor={"blue.400"}
-              borderRadius={"sm"}
-              _hover={{ color: "white", bg: "blue.400" }}
-              size={["xs", "sm"]}
-              mr={4}
-              px={7}
-              py={5}
-            >
-              <RouterLink to={"/signup"}>SIGN UP</RouterLink>
-            </Button>
-          </Flex>
+          {state.token ? (
+            <Menu>
+              <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                <GrUserExpert />
+              </MenuButton>
+              <MenuList>
+                <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+              </MenuList>
+            </Menu>
+          ) : (
+            <Flex alignItems={"center"}>
+              <Button
+                onClick={toggleColorMode}
+                bgColor={"transparent"}
+                _hover={{ bgColor: "transparent" }}
+              >
+                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+              </Button>
+              <Button
+                variant={"ghosted"}
+                colorScheme={"blue"}
+                size={["xs", "sm"]}
+                mr={4}
+              >
+                <RouterLink to={"/login"}>LOG IN</RouterLink>
+              </Button>
+              <Button
+                variant={"outline"}
+                color={"blue.400"}
+                borderColor={"blue.400"}
+                borderRadius={"sm"}
+                _hover={{ color: "white", bg: "blue.400" }}
+                size={["xs", "sm"]}
+                mr={4}
+                px={7}
+                py={5}
+              >
+                <RouterLink to={"/signup"}>SIGN UP</RouterLink>
+              </Button>
+            </Flex>
+          )}
         </Flex>
 
         {isOpen ? (

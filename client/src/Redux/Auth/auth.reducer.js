@@ -5,14 +5,15 @@ import {
   SIGNUP_SUCCESS,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
+  LOGOUT,
 } from "./auth.actionTypes";
 
-import {getItem,setItem} from "../../Utils/localStorage"
+import { getItem, setItem } from "../../Utils/localStorage";
 
 const initialState = {
   username: "",
-  token: "",
-  isAuth: getItem("isAuth") || false,
+  token: getItem("token") || "",
+  isAuth: false,
   isLoading: false,
   isError: false,
 };
@@ -41,7 +42,7 @@ export const reducer = (state = initialState, { type, payload }) => {
     }
 
     case LOGIN_SUCCESS: {
-      setItem("isAuth",true)
+      setItem("isAuth", true);
       return {
         state: { ...state, isLoading: false, isError: false, isAuth: true },
       };
@@ -49,6 +50,10 @@ export const reducer = (state = initialState, { type, payload }) => {
 
     case LOGIN_ERROR: {
       return { ...state, isLoading: false, isError: true, isAuth: false };
+    }
+
+    case LOGOUT: {
+      return { ...state, isAuth: false };
     }
 
     default:

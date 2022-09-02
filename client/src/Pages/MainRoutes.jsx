@@ -5,7 +5,7 @@ import Leaderboard from "./Leaderboard";
 import Login from "./Login";
 import Recorder from "./Recorder";
 import SignUp from "./Signup";
-import RequireAuth from "../HOC/RequriedAuth"
+import RequireAuth from "../HOC/RequriedAuth";
 
 const MainRoutes = () => {
   return (
@@ -21,7 +21,14 @@ const MainRoutes = () => {
           </RequireAuth>
         }
       />
-      <Route path="/leaderboard" element={<Leaderboard />} />
+      <Route
+        path="/leaderboard"
+        element={
+          <RequireAuth>
+            <Leaderboard />
+          </RequireAuth>
+        }
+      />
     </Routes>
   );
 };

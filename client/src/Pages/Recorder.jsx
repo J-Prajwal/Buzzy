@@ -153,6 +153,7 @@ export default function Recorder() {
   };
 
   const confirmHandler = () => {
+    setTime({ ms: 0, s: 0, m: 0, h: 0 });
     setRecord({ ...record, content: res.join(" ") });
   };
 
@@ -326,8 +327,8 @@ export default function Recorder() {
                     py={5}
                   >
                     {results.map((result) => {
-                      result.transcript;
                       res.push(result.transcript);
+                      return result.transcript;
                     })}
                   </Heading>
                 )}

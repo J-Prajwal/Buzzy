@@ -5,9 +5,10 @@ import {
   LOGIN_ERROR,
   LOGIN_SUCCESS,
   LOGIN_REQUEST,
+  LOGOUT,
 } from "./auth.actionTypes";
 import axios from "axios";
-import { setItem } from "../../Utils/localStorage";
+import { removeItem, setItem } from "../../Utils/localStorage";
 
 const signUpApi = (payload) => (dispatch) => {
   console.log(payload);
@@ -31,4 +32,11 @@ const loginApi = (payload) => (dispatch) => {
     .catch((err) => dispatch({ type: LOGIN_ERROR }));
 };
 
-export { signUpApi, loginApi };
+const logout = () => (dispatch) => {
+  removeItem("token");
+  removeItem("userId");
+  removeItem("isAuth");
+  dispatch({ type: LOGOUT });
+};
+
+export { signUpApi, loginApi, logout };
