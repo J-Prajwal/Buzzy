@@ -21,6 +21,7 @@ import { BsFillMicMuteFill, BsMicFill } from "react-icons/bs";
 import ButtonStopwatch from "../Components/ButtonStopwatch";
 import DisplayStopwatch from "../Components/DisplayStopwatch";
 import useSpeechToText from "react-hook-speech-to-text";
+import { useEffect } from "react";
 
 const avatars = [
   {
@@ -68,9 +69,7 @@ export default function Recorder() {
 
   const start = () => {
     run();
-    setStatus(1);
     setInterv(setInterval(run, 10));
-    console.log("Start");
   };
 
   var updatedMs = time.ms,
@@ -79,7 +78,7 @@ export default function Recorder() {
     updatedH = time.h;
 
   const run = () => {
-    startSpeechToText;
+    startSpeechToText();
     if (updatedM === 60) {
       updatedH++;
       updatedM = 0;
@@ -99,19 +98,20 @@ export default function Recorder() {
   };
 
   const stop = () => {
+    stopSpeechToText();
     clearInterval(interv);
     setStatus(0);
     setRecordedText(interimResult);
+    setTime({ ms: 0, s: 0, m: 0, h: 0 });
   };
 
   const reset = () => {
+    stopSpeechToText();
     clearInterval(interv);
     setStatus(0);
     setTime({ ms: 0, s: 0, m: 0, h: 0 });
     setRecordedText("");
     console.log(results);
-    let sec = Math.floor((results[0].timestamp / 1000) % 60);
-    console.log(sec);
   };
 
   const toast = useToast();
@@ -254,35 +254,54 @@ export default function Recorder() {
                     color: "gray.500",
                   }}
                 />
-                <Textarea
-                  placeholder="Start Speaking to see your context"
-                  isDisabled
-                  // value={""}
-                  rows={3}
-                  bg={"gray.100"}
-                  border={0}
-                  color={"gray.500"}
-                  _placeholder={{
-                    color: "gray.500",
-                  }}
-                />
+                {results.length === 0 ? (
+                  <Heading
+                    fontWeight={400}
+                    size={"md"}
+                    textAlign={"center"}
+                    color={"gray"}
+                    py={5}
+                  >
+                    Start speaking to see your context...
+                  </Heading>
+                ) : (
+                  <Heading
+                    fontWeight={400}
+                    size={"md"}
+                    textAlign={"center"}
+                    color={"gray"}
+                    py={5}
+                  >{results.map((res) => res.transcript)}</Heading>
+                )}
+                {interimResult && <Text>{interimResult}</Text>}
                 <Flex gap={10} justifyContent={"space-between"}>
-                  {/* <ButtonStopwatch
-                    status={status}
-                    // reset={reset}
-                    stop={stop}
-                    start={start}
-                  /> */}
-                  {!isRecording ? (
-                    <Button onClick={startSpeechToText}>
-                      <BsMicFill />
+                  {isRecording ? (
+                    <Button
+                      fontFamily={"heading"}
+                      bgGradient="linear(to-r, red.400,pink.400)"
+                      color={"white"}
+                      _hover={{
+                        bgGradient: "linear(to-r, red.400,pink.400)",
+                        boxShadow: "xl",
+                      }}
+                      onClick={stop}
+                    >
+                      <BsFillMicMuteFill />{" "}
                     </Button>
                   ) : (
-                    <Button onClick={stopSpeechToText}>
-                      <BsFillMicMuteFill />
+                    <Button
+                      fontFamily={"heading"}
+                      bgGradient="linear(to-r, red.400,pink.400)"
+                      color={"white"}
+                      _hover={{
+                        bgGradient: "linear(to-r, red.400,pink.400)",
+                        boxShadow: "xl",
+                      }}
+                      onClick={start}
+                    >
+                      <BsMicFill />
                     </Button>
                   )}
-
                   <Heading>
                     <DisplayStopwatch time={time} />{" "}
                   </Heading>
@@ -307,7 +326,7 @@ export default function Recorder() {
               toast({
                 title: "Developed By",
                 position: "top",
-                description: "Binary Beez during Hackathon",
+                description: recordedText,
                 status: "success",
                 duration: 5000,
                 isClosable: true,
@@ -317,10 +336,6 @@ export default function Recorder() {
           >
             Submit
           </Button>
-          <button onClick={isRecording ? stopSpeechToText : startSpeechToText}>
-            <span>{isRecording ? "Stop Recording" : "Start Recording"}</span>
-            {/* <img data-recording={isRecording} src={micIcon} alt="" /> */}
-          </button>
         </Stack>
       </Container>
       <Blur
