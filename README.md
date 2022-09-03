@@ -19,8 +19,6 @@
     <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="mongodb"/>
     <img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white" alt="mongodb"/>
     <img src="https://img.shields.io/badge/Glitch-2800ff?style=for-the-badge&logo=glitch&logoColor=white" alt="mongodb"/>
-    
-    
 </p>
 
 <h3 align="center"><a href="https://clockify-fixedthread.netlify.app/"><strong>Want to see live preview »</strong></a></h3>
@@ -33,20 +31,16 @@
     <a href="#Contact">Author</a> &#10023;
   </p>
   
-  Buzzy is a platform where all the members of any workspace of any respective organization using slack will be able to practise their english speaking and can judge themselves on the basis of weekly leaderboard. Here the students and employess can speak and they'll get it converted into text with the time they used and their response will be shared on the slack channels.
+Buzzy is a platform where all the members of any workspace of any respective organization using slack will be able to practise their english speaking and can judge themselves on the basis of weekly leaderboard. Here the students and employess can speak and they'll get it converted into text with the time they used and their response will be shared on the slack channels.
   
  
-![Rainbow Gradient Pink and Purple Zoom Virtual Background](https://user-images.githubusercontent.com/98648448/187078503-b8b32ed9-0ba0-4c32-b271-a3dbb51484fe.jpg)
+![Rainbow Gradient Pink and Purple Zoom Virtual Background (1)](https://user-images.githubusercontent.com/98648448/188279269-8bde580c-2a65-4f10-96ed-870dec0c105d.jpg)
 
-  ## Screens ( All screens are responsive including the calendar )
+  ## Screens ( All screens are responsive )
    - Homepage
-   - Features
-   - Time Tracker
-   - Project Management
-   - Calendar - Event & Schedule
-   - Upgrade
-   - Checkout
-   - Login / Signup
+   - Signup / Login
+   - Recorder
+   - Leaderboard
    
    <br />
 
@@ -54,13 +48,8 @@
 
 ## 🚀 Features
 - Login/Signup User Account
-- Create Your Own Projects & Tasks
-- Delete & Update Your Projects & Tasks
-- Track Your Time With Our Stopwatch
-- Keep A Record Of Your Tasks
-- Mark Events & Schedules On The Calendar(Only for Paid Users)
-- Buy Our Subscription Plan
-- Enjoy Unlimited Benifits
+- Record and submit - will post the message on slack workspace
+- Admin can access the leaderboard and post the top ranked students on slack workspace
 
 <br />
 
@@ -86,14 +75,14 @@
 
 ## Demo
 
-[Check here to see the presentation video of this project](https://drive.google.com/file/d/1o6nQyCER_kjk7TDh5xZ2XzbbbjcYb0-9/view?usp=sharing)
+[Check here to see the presentation video of this project](https://drive.google.com/file/d/111_S_Hzt-2AxZULBNX6ytE61GRYTrnfd/view?usp=sharing)
 
 
 <br/>
 
 ## Getting Started
 
-This project was built using React v 17.0.2, Redux v 4.1.1, Chakra UI, CSS, JavaScript, Rest API, Node JS, Express and MongoDB. It is a time & task management web application and for running on your local environment you should follow these guidelines.
+This project was built using React, Redux, Chakra UI, CSS, JavaScript, Rest API, Node JS, Express, MongoDB, Mongoose, Slack-Bot, Slack-Api. It is a time & task management web application and for running on your local environment you should follow these guidelines.
 
 
 ### Prerequisites
