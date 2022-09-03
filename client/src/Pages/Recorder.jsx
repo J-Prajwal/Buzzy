@@ -149,12 +149,40 @@ export default function Recorder() {
     e.preventDefault();
     setRecord({ ...record, content: res.join(" ") });
     console.log(record);
-    dispatch(postRecord(record));
+    dispatch(postRecord(record))
+      .then((res) => {
+        toast({
+          title: "Record shared on Slack",
+          description: "Congratulations on taking this amazing step!",
+          position: "top-left",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+      })
+      .catch((err) => {
+        toast({
+          title: "Internal server error!",
+          description: "Please try after sometime.",
+          position: "top-left",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
   };
 
   const confirmHandler = () => {
     setTime({ ms: 0, s: 0, m: 0, h: 0 });
     setRecord({ ...record, content: res.join(" ") });
+    toast({
+      title: "Record saved successfully!",
+      description: "You can safely submit your record now.",
+      position: "top-left",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
   };
 
   const toast = useToast();

@@ -125,7 +125,13 @@ export const AngledImage = () => {
                 }}
                 color="gray.500"
               >
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat nam mollitia aperiam doloremque magnam itaque repellat? Quos explicabo culpa aperiam, eius ipsa enim aliquam placeat consectetur possimus perspiciatis blanditiis temporibus.
+                <i>
+                  “If you do whatever it takes to accomplish your goals to live
+                  the life you desire, It will be worth it. I promise! But if
+                  you find some excuse to justify quitting your journey, you
+                  will regret it. This is also a promise!" -gbb” ― Glenn Brandon
+                  Burke
+                </i>
               </chakra.p>
               <Box
                 mt={{
@@ -139,7 +145,8 @@ export const AngledImage = () => {
                   sm: "center",
                   lg: "start",
                 }}
-                fontWeight="extrabold"
+                color={"blue.400"}
+                fontWeight="400"
                 fontFamily="fantasy"
               >
                 <Box rounded="full" shadow="md">
@@ -154,7 +161,7 @@ export const AngledImage = () => {
                       md: "lg",
                     }}
                     rounded="md"
-                    color="white"
+                    color="red.400"
                     bg="brand.600"
                     _hover={{
                       bg: "brand.700",

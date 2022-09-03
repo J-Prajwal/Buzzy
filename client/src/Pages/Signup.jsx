@@ -42,7 +42,28 @@ export default function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(signUpApi(userData));
+    dispatch(signUpApi(userData))
+      .then((res) => {
+        toast({
+          title: "New user added! Welcome✨",
+          description: "It's a start of something amazing.",
+          position: "top-left",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        navigate("/login");
+      })
+      .catch((err) => {
+        toast({
+          title: "Internal server error!",
+          description: "Please try after sometime.",
+          position: "top-left",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
   };
 
   return (

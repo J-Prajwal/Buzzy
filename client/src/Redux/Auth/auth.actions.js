@@ -13,7 +13,7 @@ import { removeItem, setItem } from "../../Utils/localStorage";
 const signUpApi = (payload) => (dispatch) => {
   console.log(payload);
   dispatch({ type: SIGNUP_REQUEST });
-  axios
+  return axios
     .post("https://powerful-oasis-04957.herokuapp.com/user/signup", payload)
     .then((res) => dispatch({ type: SIGNUP_SUCCESS, payload: res }))
     .catch((err) => dispatch({ type: SIGNUP_ERROR }));

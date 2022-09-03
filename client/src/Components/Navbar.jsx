@@ -95,14 +95,23 @@ export default function Navbar() {
             </HStack>
           </HStack>
           {state.token ? (
-            <Menu>
-              <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                <GrUserExpert />
-              </MenuButton>
-              <MenuList>
-                <MenuItem onClick={logoutHandler}>Logout</MenuItem>
-              </MenuList>
-            </Menu>
+            <Flex alignItems={"center"}>
+              <Button
+                onClick={toggleColorMode}
+                bgColor={"transparent"}
+                _hover={{ bgColor: "transparent" }}
+              >
+                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+              </Button>
+              <Menu>
+                <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                  <GrUserExpert />
+                </MenuButton>
+                <MenuList>
+                  <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+                </MenuList>
+              </Menu>
+            </Flex>
           ) : (
             <Flex alignItems={"center"}>
               <Button
