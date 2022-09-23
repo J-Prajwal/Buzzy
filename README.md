@@ -35,6 +35,7 @@ Buzzy is a platform where all the members of any workspace of any respective org
   
  
 
+![Rainbow Gradient Pink and Purple Zoom Virtual Background (1)](https://user-images.githubusercontent.com/98648448/191899374-6fb16f00-e35c-4ccf-ad84-a2282664aad7.jpg)
 
   ## Screens ( All screens are responsive )
    - Homepage
@@ -44,7 +45,6 @@ Buzzy is a platform where all the members of any workspace of any respective org
    
    <br />
 
-![Copy of Rainbow Gradient Pink and Purple Zoom Virtual Background](https://user-images.githubusercontent.com/98648448/187080274-65a8fbba-6649-4e9c-b091-b79bc22e2b43.jpg)
 
 ## 🚀 Features
 - Login/Signup User Account
