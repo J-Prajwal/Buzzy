@@ -56,20 +56,7 @@ Buzzy is a platform where all the members of any workspace of any respective org
 ## Glimpses of Clockify - Clone 🙈 :
 
 
-<table>
-  <tr>
-    <td><img src="https://user-images.githubusercontent.com/98648448/187081084-431228e1-c84b-4e9e-9b81-c1fc84e365e7.jpg" alt="home" /></td>
-    <td><img src="https://user-images.githubusercontent.com/98648448/187081184-118ed4ce-7beb-4817-a895-0ef5e0849a2f.jpg" alt="signup" /></td>
-  </tr>
-  <tr>
-    <td><img src="https://user-images.githubusercontent.com/98648448/187081278-9567df85-a920-4eac-8829-de16e51635a8.jpg" alt="products" /></td>
-    <td><img src="https://user-images.githubusercontent.com/98648448/187081431-97751f0d-ccc6-4a71-ad20-9ed33b3aeedf.jpg" alt="product-details" /></td>
-  </tr>
-  <tr>
-    <td><img src="https://user-images.githubusercontent.com/98648448/187081539-0ff2c725-94ff-4957-9537-4093009f2e10.jpg" alt="wishlist" /></td>
-    <td><img src="https://user-images.githubusercontent.com/98648448/187081705-d4f9a36b-055c-4833-8816-4e856162c8d3.jpg" alt="cart" /></td>
-  </tr>
-</table>
+
 
 <br />
 
@@ -99,13 +86,13 @@ The project repository can be found in [GitHub link](https://github.com/J-Prajwa
 
 ```
 Using HTTPS
-# git clone  https://github.com/J-Prajwal/clockifyClone-fixedThread
+# git clone  https://github.com/J-Prajwal/Buzzy
 ```
 
 + Open terminal on your workspace with
 
 ```
-cd /home/workspace/clockifyClone-fixedThread
+cd /home/workspace/Buzzy
 ```
 
 
@@ -176,6 +163,7 @@ To run this project, you will need to add the following environment variables to
 - create vite@latest - React Template 
 - MongoDB compass - DataBase Visualization
 - Postman - API Testing
+- Slack API
 
 <br/>
 
