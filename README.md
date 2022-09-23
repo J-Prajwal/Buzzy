@@ -21,12 +21,12 @@
     <img src="https://img.shields.io/badge/Glitch-2800ff?style=for-the-badge&logo=glitch&logoColor=white" alt="mongodb"/>
 </p>
 
-<h3 align="center"><a href="https://clockify-fixedthread.netlify.app/"><strong>Want to see live preview »</strong></a></h3>
+<h3 align="center"><a href="https://classy-druid-0cbd3c.netlify.app/"><strong>Want to see live preview »</strong></a></h3>
 
 <p align="center"> 
     <br />&#10023;
     <a href="#Demo">View Demo</a>   &#10023;  
-    <a href="https://github.com/J-Prajwal/clockifyClone-fixedThread/issues">Report Bug</a>    &#10023;
+    <a href="https://github.com/J-Prajwal/Buzzy/issues">Report Bug</a>    &#10023;
     <a href="#Getting-Started">Getting Started</a> &#10023; <a href="#Install">Installing</a> &#10023;    
     <a href="#Contact">Author</a> &#10023;
   </p>
@@ -34,7 +34,7 @@
 Buzzy is a platform where all the members of any workspace of any respective organization using slack will be able to practise their english speaking and can judge themselves on the basis of weekly leaderboard. Here the students and employess can speak and they'll get it converted into text with the time they used and their response will be shared on the slack channels.
   
  
-![Rainbow Gradient Pink and Purple Zoom Virtual Background (1)](https://user-images.githubusercontent.com/98648448/188279269-8bde580c-2a65-4f10-96ed-870dec0c105d.jpg)
+
 
   ## Screens ( All screens are responsive )
    - Homepage
