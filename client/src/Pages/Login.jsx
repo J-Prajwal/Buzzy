@@ -14,16 +14,12 @@ import {
 } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { loginApi } from "../Redux/Auth/auth.actions";
-import {useState} from "react";
+import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 
-
-
 export default function Login() {
-
-
   const dispatch = useDispatch();
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
   const [userData, setUserData] = useState({
     email: "",
@@ -36,14 +32,12 @@ export default function Login() {
     setUserData((values) => ({ ...values, [name]: value }));
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginApi(userData)).then(()=>
-      navigate("/recorder")
-    )
-  }
-
+    dispatch(loginApi(userData)).then((res) => {
+      if(res) navigate("/recorder");
+    });
+  };
 
   return (
     <Flex
@@ -73,7 +67,11 @@ export default function Login() {
               </FormControl>
               <FormControl id="password">
                 <FormLabel>Password</FormLabel>
-                <Input type="password" name="password" onChange={handleOnChange} />
+                <Input
+                  type="password"
+                  name="password"
+                  onChange={handleOnChange}
+                />
               </FormControl>
               <Stack spacing={10}>
                 <Stack
@@ -91,7 +89,6 @@ export default function Login() {
                   _hover={{
                     bg: "blue.500",
                   }}
-
                 >
                   Sign in
                 </Button>

@@ -14,7 +14,7 @@ const signUpApi = (payload) => (dispatch) => {
   console.log(payload);
   dispatch({ type: SIGNUP_REQUEST });
   return axios
-    .post("https://powerful-oasis-04957.herokuapp.com/user/signup", payload)
+    .post("http://localhost:7000/user/signup", payload)
     .then((res) => dispatch({ type: SIGNUP_SUCCESS, payload: res }))
     .catch((err) => dispatch({ type: SIGNUP_ERROR }));
 };
@@ -23,13 +23,19 @@ const loginApi = (payload) => (dispatch) => {
   console.log(payload);
   dispatch({ type: LOGIN_REQUEST });
   return axios
-    .post("https://powerful-oasis-04957.herokuapp.com/user/login", payload)
+    .post("http://localhost:7000/user/login", payload)
     .then((res) => {
+      console.log(res);
       setItem("userId", res.data.userId);
       dispatch({ type: LOGIN_SUCCESS });
       localStorage.setItem("token", res.data.token);
+      if (res.data != "Invalid") return true;
+      else return false;
     })
-    .catch((err) => dispatch({ type: LOGIN_ERROR }));
+    .catch((err) => {
+      dispatch({ type: LOGIN_ERROR });
+      return false;
+    });
 };
 
 const logout = () => (dispatch) => {

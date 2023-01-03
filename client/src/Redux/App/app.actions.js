@@ -7,7 +7,7 @@ const token = getItem("token");
 export const postRecord = (payload) => (dispatch) => {
   dispatch({ type: types.POST_RECORD_REQUEST });
   return axios
-    .post("https://powerful-oasis-04957.herokuapp.com/record/create", payload, {
+    .post("http://localhost:7000/record/create", payload, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -24,7 +24,7 @@ export const postRecord = (payload) => (dispatch) => {
 export const getLeaderboard = (payload) => (dispatch) => {
   dispatch({ type: types.GET_LEADERBORD_REQUEST });
   return axios
-    .get("https://powerful-oasis-04957.herokuapp.com/record/leaderboard", {
+    .get("http://localhost:7000/record/leaderboard", {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -41,7 +41,7 @@ export const getLeaderboard = (payload) => (dispatch) => {
 export const postLeaderboard = (payload) => (dispatch) => {
   dispatch({ type: types.POST_LEADERBOARD_REQUEST });
   return axios
-    .post("https://powerful-oasis-04957.herokuapp.com/record/leaderboard/post", payload, {
+    .post("http://localhost:7000/leaderboard/post", payload, {
       headers: {
         Authorization: "Bearer " + token,
       },

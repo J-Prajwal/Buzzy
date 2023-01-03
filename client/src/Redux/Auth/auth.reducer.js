@@ -13,7 +13,7 @@ import { getItem, setItem } from "../../Utils/localStorage";
 const initialState = {
   username: "",
   token: getItem("token") || "",
-  isAuth: false,
+  isAuth: getItem("token") ? true : false,
   isLoading: false,
   isError: false,
 };
@@ -42,9 +42,11 @@ export const reducer = (state = initialState, { type, payload }) => {
     }
 
     case LOGIN_SUCCESS: {
-      setItem("isAuth", true);
       return {
-        state: { ...state, isLoading: false, isError: false, isAuth: true },
+        ...state,
+        isLoading: false,
+        isError: false,
+        isAuth: true,
       };
     }
 

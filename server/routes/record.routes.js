@@ -61,7 +61,9 @@ recordController.post(
       newTime[1] = newTime[1] + " m";
       newTime[2] = newTime[2] + " s";
       newTime[3] = newTime[3] + " ms";
-      data += `Rank: ${ind + 1} - ${ele.name} (${ele.student_code}) - Time: [${newTime.join(" : ")}] \n\n`;
+      data += `Rank: ${ind + 1} - ${ele.name} (${
+        ele.student_code
+      }) - Time: [${newTime.join(" : ")}] \n\n`;
     });
     const slackResult = await axios.post(url, {
       text: data,
